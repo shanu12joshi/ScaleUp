@@ -1,12 +1,19 @@
 ﻿using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
-{   float speed = 0.1f;
+{   float speed = 0.01f;
+    bool isStop=true;
+    private static float z;
     private Touch touch;
     private float valueToIncrease = 0.2f;
+
+    public GameManager game;
     void Update()
     {
-        transform.position = new Vector3(transform.position.x,transform.position.y,transform.position.z+0.4f);
+        if(isStop){
+            transform.position = new Vector3(transform.position.x,transform.position.y,transform.position.z+0.4f);
+        }
+        // transform.Translate(Vector3.forward * Time.deltaTime * 4f);
         
         if(Input.touchCount > 0)
         {
@@ -15,7 +22,10 @@ public class PlayerMovement : MonoBehaviour
             if(touch.phase == TouchPhase.Moved )
             {
         
-                transform.position = new Vector3(transform.position.x+touch.deltaPosition.x * speed,transform.position.y,transform.position.z);
+                transform.position = new Vector3(
+                    transform.position.x+touch.deltaPosition.x * speed,
+                    transform.position.y,
+                    transform.position.z);
             }
         }
 
@@ -35,7 +45,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
     void OnCollisionEnter(Collision col){
-        if(gameObject.GetComponent<MeshRenderer>().material.name == col.gameObject.GetComponent<MeshRenderer>().material.name)
+        if(col.gameObject.name == "Finish Line"){
+            Debug.Log("Finished");
+            isStop = false;
+            game.Win();
+        }
+        else if(gameObject.GetComponent<MeshRenderer>().material.name == col.gameObject.GetComponent<MeshRenderer>().material.name)
         {
             Destroy(col.gameObject);
             ScaleUp();
@@ -57,5 +72,9 @@ public class PlayerMovement : MonoBehaviour
     private void ScaleDown(){
         transform.localScale -= new Vector3(valueToIncrease,valueToIncrease,valueToIncrease);
         transform.position= new Vector3(transform.position.x,transform.position.y-valueToIncrease, transform.position.z);
+    }
+
+    public static float GetZ(){
+        return PlayerMovement.z;
     }
 }

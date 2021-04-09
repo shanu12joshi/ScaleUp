@@ -1,0 +1,4 @@
+#Sat Apr 10 01:19:33 IST 2021
+base.0=/Users/shanujoshi/Unity-games/ScaleUp/Temp/gradleOut/launcher/build/intermediates/transforms/dexMerger/release/0
+path.0=classes.dex
+renamed.0=classes.dex
