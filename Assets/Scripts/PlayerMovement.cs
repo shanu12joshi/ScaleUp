@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
-{   float speed = 0.01f;
+{   float speed = 0.015f;
     bool isStop=true;
     private static float z;
     private Touch touch;
-    private float valueToIncrease = 0.2f;
-
+    private float valueToIncrease = 0.1f;
     public GameManager game;
+    public float move=0;
     void Update()
     {
         if(isStop){
@@ -15,9 +15,11 @@ public class PlayerMovement : MonoBehaviour
         }
         // transform.Translate(Vector3.forward * Time.deltaTime * 4f);
         
-        if(Input.touchCount > 0)
+       
+       
+        if(Input.touchCount > 0 && isStop)
         {
-            touch= Input.GetTouch(0);
+            touch = Input.GetTouch(0);
         
             if(touch.phase == TouchPhase.Moved )
             {
@@ -31,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 pos = transform.position;
 
-        pos.x = Mathf.Clamp(transform.position.x,-4f,+4f);
+        pos.x = Mathf.Clamp(transform.position.x,-1.2f,+1.2f);
 
         transform.position = pos;
         
@@ -46,7 +48,6 @@ public class PlayerMovement : MonoBehaviour
     }
     void OnCollisionEnter(Collision col){
         if(col.gameObject.name == "Finish Line"){
-            Debug.Log("Finished");
             isStop = false;
             game.Win();
         }
@@ -71,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void ScaleDown(){
         transform.localScale -= new Vector3(valueToIncrease,valueToIncrease,valueToIncrease);
-        transform.position= new Vector3(transform.position.x,transform.position.y-valueToIncrease, transform.position.z);
+        // transform.position= new Vector3(transform.position.x,transform.position.y-valueToIncrease, transform.position.z);
     }
 
     public static float GetZ(){
