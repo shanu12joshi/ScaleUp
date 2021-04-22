@@ -761,10 +761,10 @@ PlayerSettings:
     m_VersionCode: 1
     m_VersionName: 
   apiCompatibilityLevel: 6
-  cloudProjectId: d935706c-0730-4d9b-a701-6435ee1348c0
+  cloudProjectId: 
   framebufferDepthMemorylessMode: 0
-  projectName: ScaleUp
-  organizationId: shanu12joshi
+  projectName: 
+  organizationId: 
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
