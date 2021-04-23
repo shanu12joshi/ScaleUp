@@ -1313,6 +1313,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   game: {fileID: 0}
   move: 0
+  MainMenuCanvas: {fileID: 550613964813197657}
   sideSpeed: 5
 --- !u!54 &3691887863894933883
 Rigidbody:

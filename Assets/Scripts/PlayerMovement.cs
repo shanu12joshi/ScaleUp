@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {   float speed = 0.015f;
-    bool isStop=true;
+    bool isPlaying = false;
     private static float z;
     private Touch touch;
     private float valueToIncrease = 0.1f;
@@ -11,27 +11,31 @@ public class PlayerMovement : MonoBehaviour
     public float move=0;
     Vector3 temp;
 
+    public GameObject MainMenuCanvas;
     public float sideSpeed;
 
     // public Rigidbody rbody;
     void Update()
     {
-        if(isStop){
+        if(isPlaying){
             transform.position = new Vector3(transform.position.x,transform.position.y,transform.position.z+0.4f);
+            MainMenuCanvas.SetActive(false);
+
         }
         // transform.Translate(Vector3.forward * Time.deltaTime * 4f);
         
        if(Input.GetMouseButton(0)){
            MoveSide();
+           isPlaying = true;
        }
        
-        if(Input.touchCount > 0 && isStop)
+        if(Input.touchCount > 0)
         {
             touch = Input.GetTouch(0);
-        
-            if(touch.phase == TouchPhase.Moved )
+            isPlaying = true;
+
+            if(touch.phase == TouchPhase.Moved && isPlaying)
             {
-        
                 transform.position = new Vector3(
                     transform.position.x+touch.deltaPosition.x * speed,
                     transform.position.y,
@@ -58,13 +62,10 @@ public class PlayerMovement : MonoBehaviour
         // }
     }
     void OnCollisionEnter(Collision col){
-        Debug.Log(col);
-        Debug.Log("????");
         if(col.gameObject.name == "Finish Line"){
-            isStop = false;
+            isPlaying = false;
             // game.Win();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-
         }
         
   
